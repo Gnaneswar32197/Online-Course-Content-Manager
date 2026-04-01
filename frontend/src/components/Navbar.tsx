@@ -8,12 +8,7 @@ const Navbar: React.FC = () => {
   return (
     <div className="navbar">
       <h1 className="logo">CourseFlow</h1>
-      <button
-        className="login-btn"
-        onClick={() => navigate("/Login")} 
-      >
-        Admin Login
-      </button>
+      <button className="login-btn">Admin Login</button>
     </div>
   );
 };

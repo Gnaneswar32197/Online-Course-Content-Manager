@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "../styles/Login.css";
 
 const Login: React.FC = () => {
@@ -6,17 +7,30 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const [message, setMessage] = useState<string>("");
 
-  // Demo credentials
-  const demoEmail = "admin@gmail.com";
-  const demoPassword = "123456";
-
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (email === demoEmail && password === demoPassword) {
+    try {
+      const res = await axios.post("http://localhost:5000/api/auth/login", {
+        email,
+        password
+      });
+
+      // ✅ store token
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("role", res.data.user.role);
+
       setMessage("Login Successful ✅");
-    } else {
-      setMessage("Invalid Credentials ❌");
+
+      // ✅ role-based redirect
+      if (res.data.user.role === "superadmin") {
+        window.location.href = "/superadmin";
+      } else {
+        window.location.href = "/admin";
+      }
+
+    } catch (error: any) {
+      setMessage(error.response?.data?.message || "Login Failed ❌");
     }
   };
 
@@ -34,6 +48,7 @@ const Login: React.FC = () => {
           placeholder="you@example.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
         />
 
         <label>Password</label>
@@ -42,6 +57,7 @@ const Login: React.FC = () => {
           placeholder="••••••••"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
 
         <button type="submit">Sign In</button>
