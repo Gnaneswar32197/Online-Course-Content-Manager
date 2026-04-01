@@ -1,11 +1,16 @@
 import React from "react";
-import "../styles/publicCourses.css";
+import { Link } from "react-router-dom";
+import "../styles/Navbar.css";
 
 const Navbar: React.FC = () => {
   return (
     <div className="navbar">
       <h1 className="logo">CourseFlow</h1>
-      <button className="login-btn">Admin Login</button>
+
+      {/* ✅ Correct navigation (NO href="") */}
+      <Link to="/login">
+        <button className="login-btn">Admin Login</button>
+      </Link>
     </div>
   );
 };

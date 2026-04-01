@@ -1,0 +1,20 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 40px;
+  background: #0b0f1a;
+  border-bottom: 1px solid #1f2a44;
+}
+
+.logo {
+  color: #7c83ff;
+}
+
+.login-btn {
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: 1px solid #2f3b5c;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+}
