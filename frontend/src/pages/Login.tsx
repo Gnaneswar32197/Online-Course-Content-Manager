@@ -25,7 +25,7 @@ const Login: React.FC = () => {
 
       // ✅ role-based redirect
       if (res.data.user.role === "superadmin") {
-        window.location.href = "/superadmin";
+        window.location.href = "/courses";
       } else {
         window.location.href = "/admin";
       }
