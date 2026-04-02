@@ -1,8 +1,12 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
+interface CustomRequest extends Request {
+  user?: any;
+}
+
 export const authMiddleware = (
-  req: any,
+  req: CustomRequest,
   res: Response,
   next: NextFunction
 ) => {
