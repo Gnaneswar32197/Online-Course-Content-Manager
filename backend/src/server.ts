@@ -5,6 +5,7 @@ import "reflect-metadata";
 import { sequelize } from "./config/db";
 import authRoutes from "./routes/authRoutes";
 import { seedSuperAdmin } from "./seed/seedSuperAdmin";
+import userRoutes from "./routes/userRoutes";
 
 dotenv.config();
 
@@ -13,6 +14,8 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
+
+app.use("/api/users", userRoutes);
 
 const startServer = async () => {
   try {
