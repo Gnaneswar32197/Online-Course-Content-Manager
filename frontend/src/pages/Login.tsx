@@ -16,17 +16,17 @@ const Login: React.FC = () => {
         password
       });
 
-      // ✅ store token
       localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
       localStorage.setItem("role", res.data.user.role);
 
       setMessage("Login Successful ✅");
 
       // ✅ role-based redirect
       if (res.data.user.role === "superadmin") {
-        window.location.href = "/superadmin";
+        window.location.href = "/admincourses";
       } else {
-        window.location.href = "/admin";
+        window.location.href = "/Courses";
       }
 
     } catch (error: any) {

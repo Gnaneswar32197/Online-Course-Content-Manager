@@ -1,34 +1,22 @@
-import {
-  Table, Column, Model, DataType, Default
-} from "sequelize-typescript";
+import { Table, Column, Model, DataType } from "sequelize-typescript";
 
-@Table({ tableName: "users" })
+@Table
 export class User extends Model {
-  
-  @Column({
-    type: DataType.STRING,
-    allowNull: false,
-  })
+  @Column
   name!: string;
 
-  @Column({
-    type: DataType.STRING,
-    allowNull: false,
-    unique: true,
-  })
+  @Column
   email!: string;
 
-  @Column({
-    type: DataType.STRING,
-    allowNull: false,
-  })
+  @Column
   password!: string;
 
-  @Default("admin")
-  @Column(DataType.STRING)
+  @Column
   role!: "admin" | "superadmin";
 
-  @Default(true)
-  @Column(DataType.BOOLEAN)
-  isActive!: boolean;
+  @Column({
+    type: DataType.BOOLEAN,
+    defaultValue: true,
+  })
+  isActive!: boolean; // ✅ ADD THIS
 }

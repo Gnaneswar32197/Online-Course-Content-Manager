@@ -1,0 +1,83 @@
+/* PAGE */
+body {
+  background: #020617;
+  color: #e2e8f0;
+  font-family: "Inter", sans-serif;
+}
+
+/* TITLE */
+h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+/* ADD BUTTON */
+.add-btn {
+  background: #6366f1;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+/* TABLE */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: #0f172a;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+th {
+  background: #1e293b;
+  padding: 12px;
+  text-align: left;
+}
+
+td {
+  padding: 12px;
+  border-bottom: 1px solid #1e293b;
+}
+
+/* HOVER */
+tr:hover {
+  background: #1e293b;
+}
+
+/* STATUS BADGE */
+.status {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.status.published {
+  background: #22c55e33;
+  color: #22c55e;
+}
+
+.status.draft {
+  background: #f59e0b33;
+  color: #f59e0b;
+}
+
+/* ACTION BUTTONS */
+button {
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:nth-child(1) {
+  background: #22c55e;
+  color: white;
+}
+
+button:nth-child(2) {
+  background: #ef4444;
+  color: white;
+}
