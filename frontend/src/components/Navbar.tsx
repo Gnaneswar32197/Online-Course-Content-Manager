@@ -17,7 +17,7 @@ const Navbar: React.FC = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setUser(null);
-    navigate("/login");
+    navigate("/");
   };
 
   return (
@@ -25,8 +25,8 @@ const Navbar: React.FC = () => {
       <h1 className="logo">CourseFlow</h1>
 
       <div className="nav-links">
-        {/* 🔹 Always visible */}
-        <Link to="/courses">Courses</Link>
+        {/* 🔹 Show only AFTER login */}
+        {user && <Link to="/courses">Courses</Link>}
 
         {/* 🔹 Only SuperAdmin */}
         {user?.role === "superadmin" && (
@@ -40,7 +40,6 @@ const Navbar: React.FC = () => {
           </Link>
         ) : (
           <>
-            {/* 🔹 Show role */}
             <span className="role-badge">{user.role}</span>
 
             <button className="logout-btn" onClick={handleLogout}>

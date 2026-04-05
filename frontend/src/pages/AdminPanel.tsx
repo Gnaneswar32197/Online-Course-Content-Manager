@@ -11,6 +11,7 @@ const AdminPanel: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  // 🔥 FETCH ADMINS
   const fetchAdmins = async () => {
     const res = await api.get("/users");
     setAdmins(res.data);
@@ -20,6 +21,7 @@ const AdminPanel: React.FC = () => {
     fetchAdmins();
   }, []);
 
+  // 🔥 ADD ADMIN
   const handleAddAdmin = async () => {
     await api.post("/users", { name, email, password });
 
@@ -31,11 +33,22 @@ const AdminPanel: React.FC = () => {
     fetchAdmins();
   };
 
+  // 🔥 TOGGLE (FIXED)
   const handleToggle = async (id: number) => {
-    await api.patch(`/users/${id}/toggle`);
-    fetchAdmins();
+    try {
+      const res = await api.patch(`/users/${id}/toggle`);
+
+      setAdmins((prev) =>
+        prev.map((admin) =>
+          admin.id === id ? res.data : admin
+        )
+      );
+    } catch (err) {
+      console.error(err);
+    }
   };
 
+  // 🔥 DELETE
   const handleDelete = async (id: number) => {
     await api.delete(`/users/${id}`);
     fetchAdmins();
@@ -74,11 +87,13 @@ const AdminPanel: React.FC = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
+
             <input
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
+
             <input
               placeholder="Password"
               value={password}

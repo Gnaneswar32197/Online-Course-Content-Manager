@@ -4,6 +4,7 @@ import {
   getCourses,
   toggleStatus,
   deleteCourse,
+  getPublishedCourses,
 } from "../controllers/courseController";
 import { authMiddleware } from "../middleware/authMiddleware";
 
@@ -13,5 +14,6 @@ router.get("/", authMiddleware, getCourses);
 router.post("/", authMiddleware, createCourse);
 router.patch("/:id/status", authMiddleware, toggleStatus);
 router.delete("/:id", authMiddleware, deleteCourse);
+router.get("/published", getPublishedCourses);
 
 export default router;

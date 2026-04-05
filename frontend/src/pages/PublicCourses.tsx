@@ -1,69 +1,84 @@
-import React, { useState } from "react";
-import Navbar from "../components/Navbar";
+import React, { useEffect, useState } from "react";
+import api from "../services/api";
 import "../styles/publicCourses.css";
 
-interface Course {
-  id: number;
-  title: string;
-  category: string;
-}
-
-const dummyCourses: Course[] = [
-  { id: 1, title: "React Basics", category: "Web Dev" },
-  { id: 2, title: "Node.js Mastery", category: "Web Dev" },
-  { id: 3, title: "Data Science Intro", category: "Data Science" },
-];
-
 const PublicCourses: React.FC = () => {
+  const [courses, setCourses] = useState<any[]>([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
 
-  const filteredCourses = dummyCourses.filter((course) => {
-    return (
-      course.title.toLowerCase().includes(search.toLowerCase()) &&
-      (category === "All" || course.category === category)
-    );
+  const fetchCourses = async () => {
+    try {
+      const res = await api.get("/courses/published");
+      setCourses(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchCourses();
+  }, []);
+
+  // 🔥 Get unique categories
+  const categories = ["All", ...Array.from(new Set(courses.map((c) => c.category)))];
+
+  // 🔥 Apply BOTH filters (search + category)
+  const filteredCourses = courses.filter((course) => {
+    const matchesSearch = course.title
+      .toLowerCase()
+      .includes(search.toLowerCase());
+
+    const matchesCategory =
+      category === "All" || course.category === category;
+
+    return matchesSearch && matchesCategory;
   });
 
   return (
-    <div className="page">
-      <Navbar />
+    <div className="public-container">
+      <h1>Explore Courses</h1>
+      <p className="subtitle">Browse our published course catalog</p>
 
-      <div className="hero">
-        <h1>Explore Courses</h1>
-        <p>Browse our published course catalog</p>
+      {/* 🔥 Filters */}
+      <div className="filters">
+        <input
+          placeholder="Search..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
 
-        <div className="filters">
-          <input
-            type="text"
-            placeholder="Search..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option value="All">All</option>
-            <option value="Web Dev">Web Dev</option>
-            <option value="Data Science">Data Science</option>
-          </select>
-        </div>
+        {/* ✅ Category Dropdown */}
+        <select
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          {categories.map((cat, index) => (
+            <option key={index} value={cat}>
+              {cat}
+            </option>
+          ))}
+        </select>
       </div>
 
-      {/* Course List */}
-      <div className="course-list">
-        {filteredCourses.length > 0 ? (
-          filteredCourses.map((course) => (
-            <div key={course.id} className="course-card">
-              <h3>{course.title}</h3>
-              <p>{course.category}</p>
+      {/* 📦 Course Cards */}
+      <div className="course-grid">
+        {filteredCourses.map((course) => (
+          <div className="course-card" key={course.id}>
+            <h3>{course.title}</h3>
+            <p>{course.description}</p>
+
+            <span className="badge">Published</span>
+
+            <div className="meta">
+              <span>{course.level}</span>
+              <span>{course.category}</span>
+              <span>{course.duration}h</span>
             </div>
-          ))
-        ) : (
-          <p>No courses found</p>
-        )}
+
+            <div className="author">{course.instructor}</div>
+          </div>
+        ))}
       </div>
     </div>
   );

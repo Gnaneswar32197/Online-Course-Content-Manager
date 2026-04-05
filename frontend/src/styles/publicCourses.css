@@ -1,89 +1,82 @@
-body {
-  margin: 0;
-  font-family: "Segoe UI", sans-serif;
-  background-color: #0b0f1a;
-  color: white;
-}
-
-/* Navbar */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  padding: 20px 40px;
-  background: #0b0f1a;
-  border-bottom: 1px solid #1f2a44;
-}
-
-.logo {
-  color: #7c83ff;
-}
-
-.login-btn {
-  background: transparent;
-  border: 1px solid #2f3b5c;
-  padding: 8px 16px;
-  border-radius: 10px;
-  color: #cbd5e1;
-  cursor: pointer;
-}
-
-/* Hero Section */
-.hero {
+.public-container {
+  padding-top: 80px;
   text-align: center;
-  margin-top: 80px;
 }
 
-.hero h1 {
+/* Title */
+.public-container h1 {
   font-size: 42px;
   font-weight: bold;
 }
 
-.hero p {
+.subtitle {
   color: #94a3b8;
-  margin-top: 10px;
+  margin-bottom: 30px;
 }
 
 /* Filters */
 .filters {
-  margin-top: 30px;
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 15px;
+  margin-bottom: 40px;
 }
 
-.filters input {
-  padding: 12px;
-  width: 250px;
-  border-radius: 10px;
-  border: 1px solid #2f3b5c;
-  background: #111827;
-  color: white;
-}
-
+.filters input,
 .filters select {
+  background: #1e293b;
+  border: none;
   padding: 12px;
   border-radius: 10px;
-  border: 1px solid #2f3b5c;
-  background: #111827;
   color: white;
+  width: 250px;
 }
 
-/* Course Cards */
-.course-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  padding: 40px;
-  gap: 20px;
+/* Cards */
+.course-grid {
+  display: flex;
+  gap: 25px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .course-card {
-  background: #111827;
+  background: rgba(30, 41, 59, 0.6);
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255, 255, 255, 0.05);
+
   padding: 20px;
-  border-radius: 15px;
-  border: 1px solid #1f2a44;
+  width: 320px;
+  border-radius: 14px;
+  text-align: left;
+
   transition: 0.3s;
 }
 
 .course-card:hover {
   transform: translateY(-5px);
+  border-color: #6366f1;
+}
+
+.badge {
+  display: inline-block;
+  margin-top: 10px;
+
+  background: rgba(16, 185, 129, 0.2);
+  color: #10b981;
+
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.meta {
+  margin-top: 10px;
+  color: #94a3b8;
+}
+
+.author {
+  margin-top: 10px;
+  color: #a78bfa;
 }

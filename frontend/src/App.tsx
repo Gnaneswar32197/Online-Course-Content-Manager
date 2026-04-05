@@ -3,8 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
 import AdminPanel from "./pages/AdminPanel";
-import AdminCourses from "./pages/AdminCourses";
-import Courses from "./pages/Courses";
+import CoursesPage from "./pages/CoursesPage";
+import PublicCourses from "./pages/PublicCourses";
 
 const App: React.FC = () => {
   return (
@@ -13,11 +13,10 @@ const App: React.FC = () => {
 
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/" element={<h2 style={{ color: "white" }}>Home Page</h2>} />
+        <Route path="/" element={<PublicCourses />} />
         <Route path="/adminpanel" element={<AdminPanel />} />
         
-        <Route path="/admincourses" element={<AdminCourses />} />
-        <Route path="/Courses" element={<Courses />} />
+        <Route path="/courses" element={<CoursesPage />} />
       </Routes>
     </BrowserRouter>
   );

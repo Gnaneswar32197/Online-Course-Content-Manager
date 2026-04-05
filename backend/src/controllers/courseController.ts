@@ -15,9 +15,26 @@ export const createCourse = async (req: any, res: Response) => {
   }
 };
 
-export const getCourses = async (req: Request, res: Response) => {
-  const courses = await Course.findAll();
-  res.json(courses);
+export const getCourses = async (req: any, res: Response) => {
+  try {
+    const user = req.user; // from JWT
+
+    let courses;
+
+    if (user.role === "superadmin") {
+      // 👑 SuperAdmin → all courses
+      courses = await Course.findAll();
+    } else {
+      // 👨‍💼 Admin → only their courses
+      courses = await Course.findAll({
+        where: { createdBy: user.name }, // 🔥 IMPORTANT
+      });
+    }
+
+    res.json(courses);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching courses" });
+  }
 };
 
 export const toggleStatus = async (req: Request, res: Response) => {
@@ -41,4 +58,18 @@ export const deleteCourse = async (req: Request, res: Response) => {
   await Course.destroy({ where: { id } });
 
   res.json({ message: "Deleted" });
+};
+
+// controllers/courseController.ts
+
+export const getPublishedCourses = async (req: Request, res: Response) => {
+  try {
+    const courses = await Course.findAll({
+      where: { status: "published" }, // 🔥 IMPORTANT
+    });
+
+    res.json(courses);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching courses" });
+  }
 };

@@ -7,7 +7,13 @@ export const authMiddleware = (req: any, res: Response, next: NextFunction) => {
   if (!token) return res.status(401).json({ message: "No token" });
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!);
+    const decoded: any = jwt.verify(token, process.env.JWT_SECRET!);
+
+    // ❌ BLOCK INACTIVE USER (VERY IMPORTANT)
+    if (!decoded.isActive) {
+      return res.status(403).json({ message: "Account is inactive" });
+    }
+
     req.user = decoded;
     next();
   } catch {

@@ -1,83 +1,136 @@
-/* PAGE */
 body {
   background: #020617;
-  color: #e2e8f0;
-  font-family: "Inter", sans-serif;
-}
-
-/* TITLE */
-h1 {
-  font-size: 28px;
-  margin-bottom: 20px;
-}
-
-/* ADD BUTTON */
-.add-btn {
-  background: #6366f1;
   color: white;
-  padding: 8px 14px;
+  font-family: Arial, sans-serif;
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 30px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+/* Button */
+.add-btn {
+  background: #ef4444;
+  padding: 8px 16px;
   border-radius: 8px;
   border: none;
+  color: white;
   cursor: pointer;
 }
 
-/* TABLE */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-  background: #0f172a;
+/* Table */
+.table-container {
   border-radius: 10px;
   overflow: hidden;
 }
 
-th {
-  background: #1e293b;
-  padding: 12px;
-  text-align: left;
+.course-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #0f172a;
 }
 
-td {
+.course-table thead {
+  background: #1e293b;
+}
+
+.course-table th,
+.course-table td {
   padding: 12px;
+  text-align: center;
+}
+
+.course-table tr {
   border-bottom: 1px solid #1e293b;
 }
 
-/* HOVER */
-tr:hover {
-  background: #1e293b;
+.course-table tr:hover {
+  background: rgba(30, 41, 59, 0.5);
 }
 
-/* STATUS BADGE */
-.status {
+/* Status */
+.status-green {
+  background: rgba(34, 197, 94, 0.2);
+  color: #22c55e;
   padding: 4px 10px;
   border-radius: 6px;
-  font-size: 12px;
 }
 
-.status.published {
-  background: #22c55e33;
-  color: #22c55e;
-}
-
-.status.draft {
-  background: #f59e0b33;
-  color: #f59e0b;
-}
-
-/* ACTION BUTTONS */
-button {
-  border: none;
-  padding: 6px 10px;
+.status-yellow {
+  background: rgba(234, 179, 8, 0.2);
+  color: #eab308;
+  padding: 4px 10px;
   border-radius: 6px;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.toggle-btn {
+  background: #22c55e;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  color: white;
   cursor: pointer;
 }
 
-button:nth-child(1) {
-  background: #22c55e;
+.delete-btn {
+  background: #ef4444;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
   color: white;
+  cursor: pointer;
 }
 
-button:nth-child(2) {
-  background: #ef4444;
-  color: white;
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-box {
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-box input,
+.modal-box textarea,
+.modal-box select {
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
 }
