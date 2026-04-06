@@ -4,14 +4,14 @@ body {
   font-family: Arial, sans-serif;
 }
 
-/* Container */
+
 .container {
   max-width: 1200px;
   margin: auto;
   padding: 30px;
 }
 
-/* Header */
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -19,7 +19,7 @@ body {
   margin-bottom: 25px;
 }
 
-/* Button */
+
 .add-btn {
   background: #ef4444;
   padding: 8px 16px;
@@ -29,7 +29,7 @@ body {
   cursor: pointer;
 }
 
-/* Table */
+
 .table-container {
   border-radius: 10px;
   overflow: hidden;
@@ -59,7 +59,7 @@ body {
   background: rgba(30, 41, 59, 0.5);
 }
 
-/* Status */
+
 .status-green {
   background: rgba(34, 197, 94, 0.2);
   color: #22c55e;
@@ -74,7 +74,7 @@ body {
   border-radius: 6px;
 }
 
-/* Actions */
+
 .actions {
   display: flex;
   justify-content: center;
@@ -99,7 +99,7 @@ body {
   cursor: pointer;
 }
 
-/* Modal */
+
 .modal {
   position: fixed;
   top: 0;

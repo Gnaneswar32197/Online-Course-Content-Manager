@@ -9,7 +9,7 @@ export const sequelize = new Sequelize({
   database: "Online_Course_Content_Manager",
   dialect: "mysql",
   username: "root",
-  password: "root",
+  password: "Rithwik#735",
   host: "localhost",
 
   models: [User, Course],

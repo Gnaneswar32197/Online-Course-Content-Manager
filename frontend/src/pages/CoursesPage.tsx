@@ -23,7 +23,7 @@ const CoursesPage: React.FC = () => {
 
   const [form, setForm] = useState(initialForm);
 
-  // FETCH
+  
   const fetchCourses = async () => {
     const res = await api.get("/courses");
     setCourses(res.data);
@@ -34,7 +34,7 @@ const CoursesPage: React.FC = () => {
     fetchCourses();
   }, []);
 
-  // FILTER
+  
   useEffect(() => {
     let data = courses;
 
@@ -51,17 +51,17 @@ const CoursesPage: React.FC = () => {
     setFiltered(data);
   }, [search, category, courses]);
 
-  // STATS
+  
   const total = courses.length;
   const published = courses.filter((c) => c.status === "Published").length;
   const draft = courses.filter((c) => c.status === "Draft").length;
 
-  // INPUT CHANGE
+  
   const handleChange = (e: any) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // CREATE
+  
   const handleSubmit = async () => {
     await api.post("/courses", form);
     setShowModal(false);
@@ -69,7 +69,7 @@ const CoursesPage: React.FC = () => {
     fetchCourses();
   };
 
-  // UPDATE
+  
   const handleUpdate = async () => {
     await api.put(`/courses/${editId}`, form);
     setShowModal(false);
@@ -78,7 +78,7 @@ const CoursesPage: React.FC = () => {
     fetchCourses();
   };
 
-  // EDIT CLICK
+  
   const handleEdit = (c: any) => {
     setForm({
       title: c.title,
@@ -94,13 +94,13 @@ const CoursesPage: React.FC = () => {
     setShowModal(true);
   };
 
-  // TOGGLE
+  
   const handleToggle = async (id: number) => {
     await api.patch(`/courses/${id}/status`);
     fetchCourses();
   };
 
-  // DELETE
+  
   const handleDelete = async (id: number) => {
     await api.delete(`/courses/${id}`);
     fetchCourses();
