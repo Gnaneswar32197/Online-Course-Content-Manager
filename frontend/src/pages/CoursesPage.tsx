@@ -20,7 +20,7 @@ const CoursesPage: React.FC = () => {
     status: "Draft",
   });
 
-  // 🔥 FETCH COURSES
+  
   const fetchCourses = async () => {
     const res = await api.get("/courses");
     setCourses(res.data);
@@ -31,7 +31,7 @@ const CoursesPage: React.FC = () => {
     fetchCourses();
   }, []);
 
-  // 🔥 FILTER
+  
   useEffect(() => {
     let data = courses;
 
@@ -48,30 +48,30 @@ const CoursesPage: React.FC = () => {
     setFiltered(data);
   }, [search, category, courses]);
 
-  // 🔥 STATS
+  
   const total = courses.length;
   const published = courses.filter((c) => c.status === "Published").length;
   const draft = courses.filter((c) => c.status === "Draft").length;
 
-  // 🔥 INPUT CHANGE
+  
   const handleChange = (e: any) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // 🔥 ADD COURSE
+  
   const handleSubmit = async () => {
     await api.post("/courses", form);
     setShowModal(false);
     fetchCourses();
   };
 
-  // 🔥 TOGGLE STATUS
+  
   const handleToggle = async (id: number) => {
     await api.patch(`/courses/${id}/status`);
     fetchCourses();
   };
 
-  // 🔥 DELETE
+  
   const handleDelete = async (id: number) => {
     await api.delete(`/courses/${id}`);
     fetchCourses();
@@ -123,10 +123,10 @@ const CoursesPage: React.FC = () => {
               <th>Category</th>
               <th>Instructor</th>
               <th>Duration</th>
-              <th>Level</th> {/* ✅ */}
+              <th>Level</th> {/*  */}
               <th>Status</th>
               <th>Created By</th>
-              <th>Actions</th> {/* ✅ */}
+              <th>Actions</th> {/*  */}
             </tr>
           </thead>
 
@@ -138,7 +138,7 @@ const CoursesPage: React.FC = () => {
                 <td>{c.instructor}</td>
                 <td>{c.duration}</td>
 
-                <td>{c.level}</td> {/* ✅ */}
+                <td>{c.level}</td> {/*  */}
 
                 <td>
                   <span

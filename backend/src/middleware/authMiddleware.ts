@@ -9,7 +9,7 @@ export const authMiddleware = (req: any, res: Response, next: NextFunction) => {
   try {
     const decoded: any = jwt.verify(token, process.env.JWT_SECRET!);
 
-    // ❌ BLOCK INACTIVE USER (VERY IMPORTANT)
+    
     if (!decoded.isActive) {
       return res.status(403).json({ message: "Account is inactive" });
     }

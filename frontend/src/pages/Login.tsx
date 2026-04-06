@@ -20,9 +20,9 @@ const Login: React.FC = () => {
       localStorage.setItem("user", JSON.stringify(res.data.user));
       localStorage.setItem("role", res.data.user.role);
 
-      setMessage("Login Successful ✅");
+      setMessage("Login Successful ");
 
-      // ✅ role-based redirect
+     
       if (res.data.user.role === "superadmin") {
         window.location.href = "/Courses";
       } else {
@@ -30,7 +30,7 @@ const Login: React.FC = () => {
       }
 
     } catch (error: any) {
-      setMessage(error.response?.data?.message || "Login Failed ❌");
+      setMessage(error.response?.data?.message || "Login Failed ");
     }
   };
 

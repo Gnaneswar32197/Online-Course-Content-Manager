@@ -12,7 +12,7 @@ const AdminCard: React.FC<Props> = ({ admin, onToggle, onDelete }) => {
       <h3>{admin.name}</h3>
       <p>{admin.email}</p>
 
-      {/* ✅ STATUS */}
+      {/*  STATUS */}
       <span className={admin.isActive ? "active" : "inactive"}>
         {admin.isActive ? "Active" : "Inactive"}
       </span>

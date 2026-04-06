@@ -2,17 +2,16 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { User } from "../models/User";
 
-// 🔥 GET ADMINS
 export const getAdmins = async (req: Request, res: Response) => {
   const admins = await User.findAll({
     where: { role: "admin" },
-    attributes: ["id", "name", "email", "isActive"], // ✅ IMPORTANT
+    attributes: ["id", "name", "email", "isActive"], 
   });
 
   res.json(admins);
 };
 
-// 🔥 CREATE ADMIN
+
 export const createAdmin = async (req: Request, res: Response) => {
   const { name, email, password } = req.body;
 
@@ -28,7 +27,7 @@ export const createAdmin = async (req: Request, res: Response) => {
   res.status(201).json(admin);
 };
 
-// 🔥 TOGGLE ACTIVE
+
 export const toggleAdmin = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
 
@@ -41,10 +40,10 @@ export const toggleAdmin = async (req: Request, res: Response) => {
   admin.isActive = !admin.isActive;
   await admin.save();
 
-  res.json(admin); // ✅ RETURN UPDATED ADMIN
+  res.json(admin); 
 };
 
-// 🔥 DELETE
+
 export const deleteAdmin = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
 

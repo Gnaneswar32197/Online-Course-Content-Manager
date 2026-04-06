@@ -14,6 +14,6 @@ export const seedSuperAdmin = async () => {
       role: "superadmin",
     });
 
-    console.log("✅ SuperAdmin Created");
+    console.log(" SuperAdmin Created");
   }
 };

@@ -20,10 +20,10 @@ const PublicCourses: React.FC = () => {
     fetchCourses();
   }, []);
 
-  // 🔥 Get unique categories
+  
   const categories = ["All", ...Array.from(new Set(courses.map((c) => c.category)))];
 
-  // 🔥 Apply BOTH filters (search + category)
+  
   const filteredCourses = courses.filter((course) => {
     const matchesSearch = course.title
       .toLowerCase()
@@ -40,7 +40,7 @@ const PublicCourses: React.FC = () => {
       <h1>Explore Courses</h1>
       <p className="subtitle">Browse our published course catalog</p>
 
-      {/* 🔥 Filters */}
+      {/*  Filters */}
       <div className="filters">
         <input
           placeholder="Search..."
@@ -48,7 +48,7 @@ const PublicCourses: React.FC = () => {
           onChange={(e) => setSearch(e.target.value)}
         />
 
-        {/* ✅ Category Dropdown */}
+        {/*  Category Dropdown */}
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
@@ -61,7 +61,7 @@ const PublicCourses: React.FC = () => {
         </select>
       </div>
 
-      {/* 📦 Course Cards */}
+      {/*  Course Cards */}
       <div className="course-grid">
         {filteredCourses.map((course) => (
           <div className="course-card" key={course.id}>

@@ -17,17 +17,17 @@ export const createCourse = async (req: any, res: Response) => {
 
 export const getCourses = async (req: any, res: Response) => {
   try {
-    const user = req.user; // from JWT
+    const user = req.user; 
 
     let courses;
 
     if (user.role === "superadmin") {
-      // 👑 SuperAdmin → all courses
+      
       courses = await Course.findAll();
     } else {
-      // 👨‍💼 Admin → only their courses
+      
       courses = await Course.findAll({
-        where: { createdBy: user.name }, // 🔥 IMPORTANT
+        where: { createdBy: user.name }, 
       });
     }
 
@@ -38,7 +38,7 @@ export const getCourses = async (req: any, res: Response) => {
 };
 
 export const toggleStatus = async (req: Request, res: Response) => {
-  const id = Number(req.params.id); // ✅ FIX
+  const id = Number(req.params.id); 
 
   const course: any = await Course.findByPk(id);
 
@@ -53,19 +53,19 @@ export const toggleStatus = async (req: Request, res: Response) => {
 };
 
 export const deleteCourse = async (req: Request, res: Response) => {
-  const id = Number(req.params.id); // ✅ FIX
+  const id = Number(req.params.id);
 
   await Course.destroy({ where: { id } });
 
   res.json({ message: "Deleted" });
 };
 
-// controllers/courseController.ts
+
 
 export const getPublishedCourses = async (req: Request, res: Response) => {
   try {
     const courses = await Course.findAll({
-      where: { status: "published" }, // 🔥 IMPORTANT
+      where: { status: "published" }, 
     });
 
     res.json(courses);

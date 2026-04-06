@@ -11,7 +11,7 @@ import { seedSuperAdmin } from "./seed/seedSuperAdmin";
 
 dotenv.config();
 
-console.log("JWT:", process.env.JWT_SECRET); // 👈 ADD THIS
+console.log("JWT:", process.env.JWT_SECRET); 
 const app = express();
 const PORT = 5000;
 

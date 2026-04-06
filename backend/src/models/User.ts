@@ -18,5 +18,5 @@ export class User extends Model {
     type: DataType.BOOLEAN,
     defaultValue: true,
   })
-  isActive!: boolean; // ✅ ADD THIS
+  isActive!: boolean; 
 }
