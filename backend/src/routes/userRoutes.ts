@@ -3,6 +3,7 @@ import {
   getAdmins,
   createAdmin,
   toggleAdmin,
+  updateAdmin,
   deleteAdmin,
 } from "../controllers/userController";
 import { authMiddleware } from "../middleware/authMiddleware";
@@ -13,6 +14,7 @@ const router = express.Router();
 router.get("/", authMiddleware, isSuperAdmin, getAdmins);
 router.post("/", authMiddleware, isSuperAdmin, createAdmin);
 router.patch("/:id/toggle", authMiddleware, isSuperAdmin, toggleAdmin);
+router.put("/:id", authMiddleware, isSuperAdmin, updateAdmin);
 router.delete("/:id", authMiddleware, isSuperAdmin, deleteAdmin);
 
 export default router;

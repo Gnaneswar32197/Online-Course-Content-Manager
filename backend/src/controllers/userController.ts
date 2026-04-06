@@ -43,6 +43,28 @@ export const toggleAdmin = async (req: Request, res: Response) => {
   res.json(admin); 
 };
 
+export const updateAdmin = async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  const { name, email, password } = req.body;
+
+  const admin = await User.findByPk(id);
+
+  if (!admin) {
+    return res.status(404).json({ message: "Admin not found" });
+  }
+
+  if (name) admin.name = name;
+  if (email) admin.email = email;
+
+
+  if (password) {
+    admin.password = await bcrypt.hash(password, 10);
+  }
+
+  await admin.save();
+
+  res.json(admin);
+};
 
 export const deleteAdmin = async (req: Request, res: Response) => {
   const id = Number(req.params.id);

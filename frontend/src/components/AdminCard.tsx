@@ -4,15 +4,20 @@ interface Props {
   admin: any;
   onToggle: (id: number) => void;
   onDelete: (id: number) => void;
+  onEdit: (admin: any) => void; // 🔥 NEW
 }
 
-const AdminCard: React.FC<Props> = ({ admin, onToggle, onDelete }) => {
+const AdminCard: React.FC<Props> = ({
+  admin,
+  onToggle,
+  onDelete,
+  onEdit,
+}) => {
   return (
     <div className="admin-card">
       <h3>{admin.name}</h3>
       <p>{admin.email}</p>
 
-      {/*  STATUS */}
       <span className={admin.isActive ? "active" : "inactive"}>
         {admin.isActive ? "Active" : "Inactive"}
       </span>
@@ -23,6 +28,10 @@ const AdminCard: React.FC<Props> = ({ admin, onToggle, onDelete }) => {
         </button>
 
         <button onClick={() => onDelete(admin.id)}>Delete</button>
+
+        <button className="edit" onClick={() => onEdit(admin)}>
+          Edit
+        </button>
       </div>
     </div>
   );
