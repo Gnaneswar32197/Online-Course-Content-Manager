@@ -211,6 +211,13 @@ tbody td:nth-child(5)::before {
 
 .actions {
   display: flex;
-  justify-content: center;
-  gap: 8px;
+  gap: 6px;
+}
+
+.edit {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 6px;
 }

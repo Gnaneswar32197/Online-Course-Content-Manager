@@ -6,11 +6,12 @@ const CoursesPage: React.FC = () => {
   const [courses, setCourses] = useState<any[]>([]);
   const [filtered, setFiltered] = useState<any[]>([]);
   const [showModal, setShowModal] = useState(false);
+  const [editId, setEditId] = useState<number | null>(null);
 
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
 
-  const [form, setForm] = useState({
+  const initialForm = {
     title: "",
     description: "",
     category: "Web Dev",
@@ -18,9 +19,11 @@ const CoursesPage: React.FC = () => {
     instructor: "",
     duration: "",
     status: "Draft",
-  });
+  };
 
-  
+  const [form, setForm] = useState(initialForm);
+
+  // FETCH
   const fetchCourses = async () => {
     const res = await api.get("/courses");
     setCourses(res.data);
@@ -31,7 +34,7 @@ const CoursesPage: React.FC = () => {
     fetchCourses();
   }, []);
 
-  
+  // FILTER
   useEffect(() => {
     let data = courses;
 
@@ -48,30 +51,56 @@ const CoursesPage: React.FC = () => {
     setFiltered(data);
   }, [search, category, courses]);
 
-  
+  // STATS
   const total = courses.length;
   const published = courses.filter((c) => c.status === "Published").length;
   const draft = courses.filter((c) => c.status === "Draft").length;
 
-  
+  // INPUT CHANGE
   const handleChange = (e: any) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  
+  // CREATE
   const handleSubmit = async () => {
     await api.post("/courses", form);
     setShowModal(false);
+    setForm(initialForm);
     fetchCourses();
   };
 
-  
+  // UPDATE
+  const handleUpdate = async () => {
+    await api.put(`/courses/${editId}`, form);
+    setShowModal(false);
+    setEditId(null);
+    setForm(initialForm);
+    fetchCourses();
+  };
+
+  // EDIT CLICK
+  const handleEdit = (c: any) => {
+    setForm({
+      title: c.title,
+      description: c.description,
+      category: c.category,
+      level: c.level,
+      instructor: c.instructor,
+      duration: c.duration,
+      status: c.status,
+    });
+
+    setEditId(c.id);
+    setShowModal(true);
+  };
+
+  // TOGGLE
   const handleToggle = async (id: number) => {
     await api.patch(`/courses/${id}/status`);
     fetchCourses();
   };
 
-  
+  // DELETE
   const handleDelete = async (id: number) => {
     await api.delete(`/courses/${id}`);
     fetchCourses();
@@ -80,13 +109,16 @@ const CoursesPage: React.FC = () => {
   return (
     <div className="course-page">
       <div className="container">
-        {/* HEADER */}
         <div className="header">
           <h1>Course Management</h1>
 
           <button
             className="add-btn"
-            onClick={() => setShowModal(true)}
+            onClick={() => {
+              setShowModal(true);
+              setEditId(null);
+              setForm(initialForm);
+            }}
           >
             + Add Course
           </button>
@@ -123,10 +155,10 @@ const CoursesPage: React.FC = () => {
               <th>Category</th>
               <th>Instructor</th>
               <th>Duration</th>
-              <th>Level</th> {/*  */}
+              <th>Level</th>
               <th>Status</th>
               <th>Created By</th>
-              <th>Actions</th> {/*  */}
+              <th>Actions</th>
             </tr>
           </thead>
 
@@ -137,8 +169,7 @@ const CoursesPage: React.FC = () => {
                 <td>{c.category}</td>
                 <td>{c.instructor}</td>
                 <td>{c.duration}</td>
-
-                <td>{c.level}</td> {/*  */}
+                <td>{c.level}</td>
 
                 <td>
                   <span
@@ -168,6 +199,13 @@ const CoursesPage: React.FC = () => {
                   >
                     Delete
                   </button>
+
+                  <button
+                    className="edit"
+                    onClick={() => handleEdit(c)}
+                  >
+                    Edit
+                  </button>
                 </td>
               </tr>
             ))}
@@ -178,32 +216,57 @@ const CoursesPage: React.FC = () => {
         {showModal && (
           <div className="modal">
             <div className="modal-box">
-              <h2>Add Course</h2>
+              <h2>{editId ? "Update Course" : "Add Course"}</h2>
 
-              <input name="title" placeholder="Title" onChange={handleChange} />
-              <textarea name="description" placeholder="Description" onChange={handleChange} />
+              <input
+                name="title"
+                value={form.title}
+                onChange={handleChange}
+                placeholder="Title"
+              />
 
-              <input name="instructor" placeholder="Instructor" onChange={handleChange} />
-              <input name="duration" placeholder="Duration" onChange={handleChange} />
+              <textarea
+                name="description"
+                value={form.description}
+                onChange={handleChange}
+                placeholder="Description"
+              />
 
-              <select name="category" onChange={handleChange}>
+              <input
+                name="instructor"
+                value={form.instructor}
+                onChange={handleChange}
+                placeholder="Instructor"
+              />
+
+              <input
+                name="duration"
+                value={form.duration}
+                onChange={handleChange}
+                placeholder="Duration"
+              />
+
+              <select name="category" value={form.category} onChange={handleChange}>
                 <option>Web Dev</option>
                 <option>Data Science</option>
                 <option>Design</option>
               </select>
 
-              <select name="level" onChange={handleChange}>
+              <select name="level" value={form.level} onChange={handleChange}>
                 <option>Beginner</option>
                 <option>Intermediate</option>
                 <option>Advanced</option>
               </select>
 
-              <select name="status" onChange={handleChange}>
+              <select name="status" value={form.status} onChange={handleChange}>
                 <option>Draft</option>
                 <option>Published</option>
               </select>
 
-              <button onClick={handleSubmit}>Add</button>
+              <button onClick={editId ? handleUpdate : handleSubmit}>
+                {editId ? "Update" : "Add"}
+              </button>
+
               <button onClick={() => setShowModal(false)}>Cancel</button>
             </div>
           </div>

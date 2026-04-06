@@ -62,6 +62,18 @@ export const deleteCourse = async (req: Request, res: Response) => {
 
 
 
+export const updateCourse = async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+
+  const course = await Course.findByPk(id);
+  if (!course) {
+    return res.status(404).json({ message: "Not found" });
+  }
+
+  await course.update(req.body);
+  res.json(course);
+};
+
 export const getPublishedCourses = async (req: Request, res: Response) => {
   try {
     const courses = await Course.findAll({
