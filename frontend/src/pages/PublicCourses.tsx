@@ -81,7 +81,7 @@ const PublicCourses: React.FC = () => {
         ))}
       </div>
 
-      {/* 🔥 POPUP */}
+      {/* POPUP */}
       {selectedCourse && (
         <div className="modal" onClick={() => setSelectedCourse(null)}>
           <div

@@ -21,7 +21,7 @@
   width: 100%;
 }
 
-/* Add Button */
+
 .add-btn {
   background: linear-gradient(45deg, #6366f1, #8b5cf6);
   border: none;
@@ -37,7 +37,7 @@
   opacity: 0.9;
 }
 
-/* 🔥 Stats */
+
 .stats {
   display: flex;
   gap: 20px;
@@ -62,7 +62,7 @@
   color: #f59e0b;
 }
 
-/* 🔥 Filters */
+
 .filters {
   display: flex;
   gap: 15px;
@@ -79,7 +79,7 @@
   outline: none;
 }
 
-/* 🔥 Table */
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -113,7 +113,7 @@ tbody td {
   color: #e2e8f0;
 }
 
-/* 🔥 Status Badge */
+
 tbody td:nth-child(5) {
   font-weight: bold;
 }
@@ -122,7 +122,7 @@ tbody td:nth-child(5)::before {
   content: "";
 }
 
-/* 🔥 Modal Background */
+
 .modal {
   position: fixed;
   top: 0;
@@ -136,7 +136,7 @@ tbody td:nth-child(5)::before {
   align-items: center;
 }
 
-/* 🔥 Modal Box */
+
 .modal-box {
   background: #0f172a;
   padding: 25px;
@@ -148,7 +148,7 @@ tbody td:nth-child(5)::before {
   margin-bottom: 15px;
 }
 
-/* Inputs */
+
 .modal-box input,
 .modal-box textarea,
 .modal-box select {
@@ -161,7 +161,7 @@ tbody td:nth-child(5)::before {
   color: white;
 }
 
-/* Buttons */
+
 .modal-box button {
   padding: 10px;
   border: none;
@@ -170,19 +170,19 @@ tbody td:nth-child(5)::before {
   cursor: pointer;
 }
 
-/* Add Button */
+
 .modal-box button:first-of-type {
   background: #6366f1;
   color: white;
 }
 
-/* Cancel Button */
+
 .modal-box button:last-of-type {
   background: #374151;
   color: white;
 }
 
-/* 🔥 Responsive */
+
 @media (max-width: 768px) {
   .stats {
     flex-direction: column;

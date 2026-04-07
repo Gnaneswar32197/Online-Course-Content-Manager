@@ -4,7 +4,7 @@ interface Props {
   admin: any;
   onToggle: (id: number) => void;
   onDelete: (id: number) => void;
-  onEdit: (admin: any) => void; // 🔥 NEW
+  onEdit: (admin: any) => void; 
 }
 
 const AdminCard: React.FC<Props> = ({

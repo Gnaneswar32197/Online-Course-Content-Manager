@@ -9,7 +9,7 @@
   color: #aaa;
 }
 
-/* STATS */
+
 .stats {
   display: flex;
   gap: 20px;
@@ -29,7 +29,7 @@
   margin-top: 10px;
 }
 
-/* FILTER */
+
 .filters {
   display: flex;
   gap: 10px;
@@ -44,7 +44,7 @@
   color: white;
 }
 
-/* TABLE */
+
 .course-table {
   width: 100%;
   border-collapse: collapse;
@@ -56,16 +56,16 @@
   border-bottom: 1px solid #222;
 }
 
-/* LEVEL */
+
 .level.beginner { color: #00d084; }
 .level.intermediate { color: #f5a623; }
 .level.advanced { color: #ff4d4f; }
 
-/* STATUS */
+
 .status.published { color: #00d084; }
 .status.draft { color: #f5a623; }
 
-/* BUTTONS */
+
 .btn {
   margin-right: 5px;
   padding: 5px 10px;

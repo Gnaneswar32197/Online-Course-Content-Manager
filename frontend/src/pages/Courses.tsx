@@ -28,7 +28,7 @@ const Courses: React.FC = () => {
     status: "Draft",
   });
 
-  // FETCH
+  
   const fetchCourses = async () => {
     try {
       const res = await api.get("/courses");
@@ -42,14 +42,14 @@ const Courses: React.FC = () => {
     fetchCourses();
   }, []);
 
-  // HANDLE CHANGE
+  
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // ADD COURSE
+  
   const addCourse = async () => {
     try {
       await api.post("/courses", {
@@ -74,13 +74,13 @@ const Courses: React.FC = () => {
     }
   };
 
-  // TOGGLE STATUS
+  
   const toggleStatus = async (id: number) => {
     await api.patch(`/courses/${id}/status`);
     fetchCourses();
   };
 
-  // DELETE
+  
   const deleteCourse = async (id: number) => {
     await api.delete(`/courses/${id}`);
     fetchCourses();
