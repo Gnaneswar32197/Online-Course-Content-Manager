@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { User } from "../models/User";
+import { sendEmail } from "../utils/sendEmail";
+
 
 export const login = async (req: Request, res: Response) => {
   try {
@@ -54,6 +56,56 @@ export const login = async (req: Request, res: Response) => {
     });
 
   } catch (err) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const resetPassword = async (req: any, res: any) => {
+  const { userId, newPassword } = req.body;
+
+  const user = await User.findByPk(userId);
+
+  const hashed = await bcrypt.hash(newPassword, 10);
+
+  user!.password = hashed;
+  user!.mustResetPassword = false;
+
+  await user!.save();
+
+  res.json({ message: "Password updated" });
+};
+
+export const createAdmin = async (req: any, res: any) => {
+  try {
+    const { name, email, password } = req.body;
+
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: "All fields required" });
+    }
+
+    const exists = await User.findOne({ where: { email } });
+
+    if (exists) {
+      return res.status(400).json({ message: "Email already exists" });
+    }
+
+    const hashed = await bcrypt.hash(password, 10);
+
+    const admin = await User.create({
+      name,
+      email,
+      password: hashed,
+      role: "admin",
+      mustResetPassword: true,
+    });
+
+    // 🔥 ENABLE THIS
+    await sendEmail(email, password);
+
+    res.json({ message: "Admin created", admin });
+
+  } catch (err) {
+    console.error("CREATE ADMIN ERROR:", err);
     res.status(500).json({ message: "Server error" });
   }
 };

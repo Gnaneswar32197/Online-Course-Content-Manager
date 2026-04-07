@@ -16,7 +16,7 @@ const AdminPanel: React.FC = () => {
 
   const [form, setForm] = useState(initialForm);
 
-  // 🔹 FETCH ADMINS
+ 
   const fetchAdmins = async () => {
     const res = await api.get("/users");
     setAdmins(res.data);
@@ -26,22 +26,37 @@ const AdminPanel: React.FC = () => {
     fetchAdmins();
   }, []);
 
-  // 🔹 INPUT CHANGE
+ 
   const handleChange = (e: any) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // 🔹 ADD ADMIN
-  const handleAddAdmin = async () => {
+  
+
+const handleAddAdmin = async () => {
+  if (!form.name || !form.email || !form.password) {
+    alert("All fields required");
+    return;
+  }
+
+  try {
     await api.post("/users", form);
 
-    setForm(initialForm);
+   
     setShowModal(false);
 
-    fetchAdmins();
-  };
+  
+    setForm(initialForm);
 
-  // 🔹 UPDATE ADMIN ✏️
+   
+    fetchAdmins();
+
+  } catch (err: any) {
+    alert(err.response?.data?.message || "Error");
+  }
+};
+
+
   const handleUpdateAdmin = async () => {
     await api.put(`/users/${editId}`, form);
 
@@ -52,19 +67,19 @@ const AdminPanel: React.FC = () => {
     fetchAdmins();
   };
 
-  // 🔹 EDIT CLICK
+  
   const handleEdit = (admin: any) => {
     setForm({
       name: admin.name,
       email: admin.email,
-      password: "", // password empty for security
+      password: "",
     });
 
     setEditId(admin.id);
     setShowModal(true);
   };
 
-  // 🔹 TOGGLE
+ 
   const handleToggle = async (id: number) => {
     try {
       const res = await api.patch(`/users/${id}/toggle`);
@@ -77,7 +92,7 @@ const AdminPanel: React.FC = () => {
     }
   };
 
-  // 🔹 DELETE
+ 
   const handleDelete = async (id: number) => {
     await api.delete(`/users/${id}`);
     fetchAdmins();
@@ -109,7 +124,7 @@ const AdminPanel: React.FC = () => {
             admin={admin}
             onToggle={handleToggle}
             onDelete={handleDelete}
-            onEdit={handleEdit}   // 🔥 NEW
+            onEdit={handleEdit}   
           />
         ))}
       </div>

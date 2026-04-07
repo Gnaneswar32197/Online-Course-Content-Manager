@@ -6,12 +6,18 @@ const Navbar: React.FC = () => {
   const [user, setUser] = useState<any>(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
+useEffect(() => {
+  const storedUser = localStorage.getItem("user");
+
+  if (storedUser && storedUser !== "undefined") {
+    try {
       setUser(JSON.parse(storedUser));
+    } catch (err) {
+      console.error("Invalid JSON:", err);
+      localStorage.removeItem("user");
     }
-  }, []);
+  }
+}, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -25,15 +31,15 @@ const Navbar: React.FC = () => {
       <h1 className="logo">CourseFlow</h1>
 
       <div className="nav-links">
-        {/* 🔹 Show only AFTER login */}
+        
         {user && <Link to="/courses">Courses</Link>}
 
-        {/* 🔹 Only SuperAdmin */}
+        
         {user?.role === "superadmin" && (
           <Link to="/adminpanel">Admin Panel</Link>
         )}
 
-        {/* 🔹 If NOT logged in */}
+      
         {!user ? (
           <Link to="/login">
             <button className="login-btn">Admin Login</button>

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
+
 import { User } from "../models/User";
 
 export const getAdmins = async (req: Request, res: Response) => {
@@ -12,20 +13,6 @@ export const getAdmins = async (req: Request, res: Response) => {
 };
 
 
-export const createAdmin = async (req: Request, res: Response) => {
-  const { name, email, password } = req.body;
-
-  const hashed = await bcrypt.hash(password, 10);
-
-  const admin = await User.create({
-    name,
-    email,
-    password: hashed,
-    role: "admin",
-  });
-
-  res.status(201).json(admin);
-};
 
 
 export const toggleAdmin = async (req: Request, res: Response) => {
