@@ -5,6 +5,7 @@ import AdminPanel from "./pages/AdminPanel";
 import CoursesPage from "./pages/CoursesPage";
 import PublicCourses from "./pages/PublicCourses";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { ToastContainer } from "react-toastify";
 
 const router = createBrowserRouter([
   {
@@ -50,7 +51,15 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+      <ToastContainer 
+      position="top-right"
+        autoClose={3000}
+        theme="dark"/>
+    </>
+  );
 };
 
 export default App;

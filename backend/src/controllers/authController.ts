@@ -60,19 +60,62 @@ export const login = async (req: Request, res: Response) => {
   }
 };
 
-export const resetPassword = async (req: any, res: any) => {
-  const { userId, newPassword } = req.body;
+export const sendOtp = async (req: any, res: any) => {
+  const { email } = req.body;
 
-  const user = await User.findByPk(userId);
+  const user = await User.findOne({ where: { email } });
+
+  if (!user) {
+    return res.status(404).json({ message: "Email not registered" });
+  }
+
+  const otp = Math.floor(100000 + Math.random() * 900000).toString();
+
+  user.otp = otp;
+  user.otpExpiry = new Date(Date.now() + 5 * 60 * 1000);
+
+  await user.save();
+
+  await sendEmail(email, otp, "otp");
+
+  res.json({ message: "OTP sent successfully" });
+};
+
+// 🔥 VERIFY OTP
+export const verifyOtp = async (req: any, res: any) => {
+  const { email, otp } = req.body;
+
+  const user = await User.findOne({ where: { email } });
+
+  if (!user || user.otp !== otp) {
+    return res.status(400).json({ message: "Invalid OTP" });
+  }
+
+  if (new Date() > user.otpExpiry) {
+    return res.status(400).json({ message: "OTP expired" });
+  }
+
+  res.json({ message: "OTP verified" });
+};
+
+// 🔥 RESET PASSWORD
+export const resetPasswordWithOtp = async (req: any, res: any) => {
+  const { email, newPassword } = req.body;
+
+  const user = await User.findOne({ where: { email } });
+
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
 
   const hashed = await bcrypt.hash(newPassword, 10);
 
-  user!.password = hashed;
-  user!.mustResetPassword = false;
+  user.password = hashed;
+  user.otp = "";
 
-  await user!.save();
+  await user.save();
 
-  res.json({ message: "Password updated" });
+  res.json({ message: "Password updated successfully" });
 };
 
 export const createAdmin = async (req: any, res: any) => {
@@ -100,7 +143,7 @@ export const createAdmin = async (req: any, res: any) => {
     });
 
     // 🔥 ENABLE THIS
-    await sendEmail(email, password);
+    await sendEmail(email, password, "welcome");
 
     res.json({ message: "Admin created", admin });
 

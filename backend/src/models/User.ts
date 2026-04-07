@@ -25,4 +25,11 @@ export class User extends Model {
   @Default(true)
   @Column
   mustResetPassword!: boolean;
+
+  @Column(DataType.STRING)
+  otp!: string;
+
+  @Column(DataType.DATE)
+  otpExpiry!: Date;
+
 }

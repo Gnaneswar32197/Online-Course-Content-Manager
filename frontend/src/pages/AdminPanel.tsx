@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import api from "../services/api";
 import AdminCard from "../components/AdminCard";
+import { toast } from "react-toastify";
 import "../styles/admin.css";
 
 const AdminPanel: React.FC = () => {
@@ -35,7 +36,7 @@ const AdminPanel: React.FC = () => {
 
 const handleAddAdmin = async () => {
   if (!form.name || !form.email || !form.password) {
-    alert("All fields required");
+    toast.error("All fields required");
     return;
   }
 
@@ -52,7 +53,7 @@ const handleAddAdmin = async () => {
     fetchAdmins();
 
   } catch (err: any) {
-    alert(err.response?.data?.message || "Error");
+    toast.error(err.response?.data?.message || "Error");
   }
 };
 
