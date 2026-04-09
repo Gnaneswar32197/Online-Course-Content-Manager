@@ -6,13 +6,14 @@ import CoursesPage from "./pages/CoursesPage";
 import PublicCourses from "./pages/PublicCourses";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { ToastContainer } from "react-toastify";
+import Profile from "./pages/Profile";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
       <>
-        <Navbar /> 
+        <Navbar />
         <PublicCourses />
       </>
     ),
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
     path: "/login",
     element: (
       <>
-        <Navbar /> 
+        <Navbar />
         <Login />
       </>
     ),
@@ -31,7 +32,7 @@ const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <>
-          <Navbar /> 
+          <Navbar />
           <CoursesPage />
         </>
       </ProtectedRoute>
@@ -48,16 +49,30 @@ const router = createBrowserRouter([
       </ProtectedRoute>
     ),
   },
+
+  // ✅🔥 ADD THIS BLOCK
+  {
+    path: "/profile",
+    element: (
+      <ProtectedRoute>
+        <>
+          <Navbar />
+          <Profile />
+        </>
+      </ProtectedRoute>
+    ),
+  },
 ]);
 
 const App = () => {
   return (
     <>
       <RouterProvider router={router} />
-      <ToastContainer 
-      position="top-right"
+      <ToastContainer
+        position="top-right"
         autoClose={3000}
-        theme="dark"/>
+        theme="dark"
+      />
     </>
   );
 };

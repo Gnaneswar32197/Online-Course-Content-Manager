@@ -32,4 +32,6 @@ export class User extends Model {
   @Column(DataType.DATE)
   otpExpiry!: Date;
 
+  @Column(DataType.TEXT("long"))
+profileImage!: string;
 }

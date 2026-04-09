@@ -1,0 +1,77 @@
+.profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 85vh;
+  background: #020617;
+  color: white;
+}
+
+.profile-card {
+  background: #0f172a;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  width: 320px;
+}
+
+.profile-card img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatar {
+  width: 90px;
+  height: 90px;
+  background: #1e293b;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin: auto;
+  color: #facc15;
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border: none;
+  background: #1e293b;
+  color: white;
+}
+
+.btn-group {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-btn {
+  margin-top: 15px;
+  padding: 10px;
+  width: 100%;
+  background: #6366f1;
+  border: none;
+  border-radius: 6px;
+  color: white;
+}
+
+.save-btn {
+  background: #10b981;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  color: white;
+}
+
+.cancel-btn {
+  background: #ef4444;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  color: white;
+}

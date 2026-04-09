@@ -16,6 +16,6 @@
     "emitDecoratorMetadata": true,
     "sourceMap": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "upload.ts"],
   "exclude": ["node_modules", "dist"]
 }

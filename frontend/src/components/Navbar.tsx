@@ -6,18 +6,17 @@ const Navbar: React.FC = () => {
   const [user, setUser] = useState<any>(null);
   const navigate = useNavigate();
 
-useEffect(() => {
-  const storedUser = localStorage.getItem("user");
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
 
-  if (storedUser && storedUser !== "undefined") {
-    try {
-      setUser(JSON.parse(storedUser));
-    } catch (err) {
-      console.error("Invalid JSON:", err);
-      localStorage.removeItem("user");
+    if (storedUser && storedUser !== "undefined") {
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch {
+        localStorage.removeItem("user");
+      }
     }
-  }
-}, []);
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -31,27 +30,26 @@ useEffect(() => {
       <h1 className="logo">CourseFlow</h1>
 
       <div className="nav-links">
-        
+        {/* Courses */}
         {user && <Link to="/courses">Courses</Link>}
 
-        
+        {/* 🔥 Profile Button */}
+        {user && <Link to="/profile">Profile</Link>}
+
+        {/* Admin Panel */}
         {user?.role === "superadmin" && (
           <Link to="/adminpanel">Admin Panel</Link>
         )}
 
-      
+        {/* Login / Logout */}
         {!user ? (
           <Link to="/login">
             <button className="login-btn">Admin Login</button>
           </Link>
         ) : (
-          <>
-            <span className="role-badge">{user.role}</span>
-
-            <button className="logout-btn" onClick={handleLogout}>
-              Logout
-            </button>
-          </>
+          <button className="logout-btn" onClick={handleLogout}>
+            Logout
+          </button>
         )}
       </div>
     </div>

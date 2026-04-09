@@ -4,45 +4,42 @@ import jwt from "jsonwebtoken";
 import { User } from "../models/User";
 import { sendEmail } from "../utils/sendEmail";
 
-
+// ✅ LOGIN
 export const login = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
 
-    
     const user: any = await User.findOne({ where: { email } });
 
     if (!user) {
       return res.status(401).json({ message: "Invalid email" });
     }
 
-    
     if (!user.isActive) {
       return res.status(403).json({
         message: "Your account is deactivated. Contact SuperAdmin.",
       });
     }
 
-    
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
       return res.status(401).json({ message: "Invalid password" });
     }
 
-    
+    // 🔥 JWT TOKEN
     const token = jwt.sign(
       {
         id: user.id,
         role: user.role,
         name: user.name,
-        isActive: user.isActive, 
+        isActive: user.isActive,
       },
       process.env.JWT_SECRET as string,
       { expiresIn: "1d" }
     );
 
-    
+    // ✅ RETURN FULL USER (INCLUDING PROFILE IMAGE)
     res.json({
       message: "Login successful",
       token,
@@ -52,18 +49,21 @@ export const login = async (req: Request, res: Response) => {
         email: user.email,
         role: user.role,
         isActive: user.isActive,
+        profileImage: user.profileImage, // 🔥 IMPORTANT FIX
       },
     });
 
   } catch (err) {
+    console.error("LOGIN ERROR:", err);
     res.status(500).json({ message: "Server error" });
   }
 };
 
+// ✅ SEND OTP
 export const sendOtp = async (req: any, res: any) => {
   const { email } = req.body;
 
-  const user = await User.findOne({ where: { email } });
+  const user: any = await User.findOne({ where: { email } });
 
   if (!user) {
     return res.status(404).json({ message: "Email not registered" });
@@ -81,11 +81,11 @@ export const sendOtp = async (req: any, res: any) => {
   res.json({ message: "OTP sent successfully" });
 };
 
-// 🔥 VERIFY OTP
+// ✅ VERIFY OTP
 export const verifyOtp = async (req: any, res: any) => {
   const { email, otp } = req.body;
 
-  const user = await User.findOne({ where: { email } });
+  const user: any = await User.findOne({ where: { email } });
 
   if (!user || user.otp !== otp) {
     return res.status(400).json({ message: "Invalid OTP" });
@@ -98,11 +98,11 @@ export const verifyOtp = async (req: any, res: any) => {
   res.json({ message: "OTP verified" });
 };
 
-// 🔥 RESET PASSWORD
+// ✅ RESET PASSWORD
 export const resetPasswordWithOtp = async (req: any, res: any) => {
   const { email, newPassword } = req.body;
 
-  const user = await User.findOne({ where: { email } });
+  const user: any = await User.findOne({ where: { email } });
 
   if (!user) {
     return res.status(404).json({ message: "User not found" });
@@ -118,6 +118,7 @@ export const resetPasswordWithOtp = async (req: any, res: any) => {
   res.json({ message: "Password updated successfully" });
 };
 
+// ✅ CREATE ADMIN
 export const createAdmin = async (req: any, res: any) => {
   try {
     const { name, email, password } = req.body;
@@ -142,7 +143,6 @@ export const createAdmin = async (req: any, res: any) => {
       mustResetPassword: true,
     });
 
-    // 🔥 ENABLE THIS
     await sendEmail(email, password, "welcome");
 
     res.json({ message: "Admin created", admin });
